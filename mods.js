@@ -1,5 +1,5 @@
 const fs = require('fs');
-
+const bdd = require('./bdd.js')
 
 let m = []
 
@@ -15,7 +15,7 @@ module.exports.mods = {
         const all_files = this.exploreDir("./mods")
         for (const file of all_files) {
             const mod = require(`./mods/${file}`)
-            if(!mod.name || !mod.description || !mod.version || !mod.run) {
+            if(!mod.name || !mod.description || !mod.version || !mod.run || !mod.parser || !mod.parsemodel) {
                 console.log(`[!] Skipping mod: ${file}, missing required fields`)
                 continue
             }   
@@ -24,7 +24,9 @@ module.exports.mods = {
                 name: mod.name,
                 description: mod.description,
                 version: mod.version,
-                instance: mod.run
+                instance: mod.run,
+                parser: mod.parser,
+                parsemodel: mod.parsemodel
             })
         }
 
@@ -47,6 +49,13 @@ module.exports.mods = {
         }
         
         let res = await mod.instance(path)
+
+        if(res.parse) {
+            // parse the response
+            delete res.parse
+            const parsed = mod.parser(res)
+            bdd.sayHello()
+        }
         
         return {
             status: 200,
