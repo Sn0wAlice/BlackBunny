@@ -1,0 +1,13 @@
+
+--------------------------------------------
+
+Hello, and welcome to BlackBunny !
+
+This message is printed because you have not yet configured your BlackBunny modules.
+To use BlackBunny, you need to configure your modules in the 'mods' directory.
+
+You can check the example mods in the 'example/mods.ex.js' file.
+
+Have fun with BlackBunny !
+
+
