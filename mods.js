@@ -28,6 +28,8 @@ module.exports.mods = {
                 parser: mod.parser,
                 parsemodel: mod.parsemodel
             })
+
+            await bdd.migrate(mod.name, mod.parsemodel)
         }
 
         console.log(`[+] Loaded ${m.length} mods`)
@@ -54,7 +56,8 @@ module.exports.mods = {
             // parse the response
             delete res.parse
             const parsed = mod.parser(res)
-            bdd.sayHello()
+            console.log(parsed)
+            //bdd.sayHello()
         }
         
         return {
